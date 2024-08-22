@@ -37,9 +37,9 @@ type Rule110<X extends Cell, Y extends Cell, Z extends Cell> = {
 // 根据State生成下一个State，第一个元素不变
 type NextState<State extends Array<Cell>> = State extends [
   infer X extends Cell,
-  ...infer Reset extends Array<Cell>
+  ...infer Rest extends Array<Cell>
 ]
-  ? [X, ...Next<X, Reset>]
+  ? [X, ...Next<X, Rest>]
   : [];
 
 type Next<X extends Cell, Lst extends Array<Cell>> = Lst extends [
@@ -58,6 +58,5 @@ type GenNTime<N extends Array<any>, State extends Array<Cell>> = N extends []
   : [State, ...GenNTime<Tail<N>, NextState<State>>];
 
 type N = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-type InitState = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0];
 
-let k: GenNTime<N, InitState> = 69;
+let k: GenNTime<N, [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0]> = 69;
